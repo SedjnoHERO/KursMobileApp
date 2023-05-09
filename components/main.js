@@ -17,7 +17,6 @@ export default function Main( {navigation}) {
 
   return (
       <View style={gStyle.main}>
-        <Text style={[gStyle.title , styles.header]}>Главная страница</Text>
         <FlatList data={news} renderItem={({item})=>(
           <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('FullInfo', item ) }>
           <Image source={{
@@ -37,9 +36,6 @@ export default function Main( {navigation}) {
  
 const styles = StyleSheet.create({
 
-  header: {
-    marginBottom: 30,
-  },
   item: {
     width: "100%",
     marginBottom: 30,
