@@ -48,6 +48,7 @@ const Welcome = ({ navigation }) => {
         placeholder="Введите имя"
         value={username}
         onChangeText={handleUsernameChange}
+        color={isDarkMode() ? "white" : "black"}
       />
       <TextInput
         style={[styles.input, styles.placeholder, { marginBottom: 40 }]}
@@ -55,6 +56,7 @@ const Welcome = ({ navigation }) => {
         value={password}
         onChangeText={handlePasswordChange}
         maxLength={16}
+        color={isDarkMode() ? "white" : "black"}
       />
       <TouchableOpacity onPress={handleLogin} disabled={isButtonDisabled}>
         <View style={[styles.button, isButtonDisabled && styles.disabledButton]}>
@@ -72,12 +74,11 @@ const styles = StyleSheet.create({
     fontFamily: "mt-light",
     bottom: 0,
     fontSize: 18,
-    marginBottom: 46,
+    marginBottom: Platform.OS === "ios" ? 46 : 15,
     color: isDarkMode() ? "white" : "black",
   },
   placeholder: {
     fontFamily: "mt-light",
-    fontWeight: 500,
     fontSize: 24,
     lineHeight: 29,
     textAlign: "center",
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   disabledButton: {
-    color: "rgba(255, 202, 29, 0.3)",
+    color: isDarkMode() ? "rgba(255, 202, 29, 0.3)" : "rgba(102, 205, 170, 0.3)",
   },
 });
 

@@ -14,7 +14,6 @@ export const gStyle = StyleSheet.create({
 
   title: {
     fontSize: 25,
-    lineHeight: 24,
     fontFamily: "mt-bold",
     textAlign: "center",
     color: isDarkMode() ? "white" : "black",
@@ -24,15 +23,20 @@ export const gStyle = StyleSheet.create({
     color: isDarkMode() ? "white" : "black",
     fontSize: 18,
     fontFamily: "mt-light",
-    height: 66,
     width: "100%",
     textAlign: "center",
   },
 
   funcText: {
     color: isDarkMode() ? "#FFCA1D" : "#66CDAA",
-    fontFamily: "mt-light",
+    fontFamily: "mt-med",
     fontSize: 18,
+  },
+
+  specText: {
+    color: isDarkMode() ? "white" : "black",
+    fontFamily: "mt-med",
+    fontSize: 24,
   },
 
   header: {
@@ -40,10 +44,8 @@ export const gStyle = StyleSheet.create({
     marginTop: 61,
     textAlign: "center",
     fontFamily: "mt-light",
-    fontWeight: 800,
     fontSize: 32,
-    lineHeight: 39,
     textAlign: "center",
-    color: "#FFFFFF",
+    color: isDarkMode() ? "white" : "black",
   },
 });

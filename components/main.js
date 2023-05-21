@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { gStyle } from "../styles/style";
+import { StyleSheet, Text, View, TouchableOpacity, Image, StatusBar } from "react-native";
+import { gStyle, isDarkMode } from "../styles/style";
 // import Contacts from './contacts';
 
 export default function Main({ navigation }) {
@@ -14,51 +14,55 @@ export default function Main({ navigation }) {
   //   {name: 'FaceBook', anons: 'FaceBook!!!', full: 'FaceBook is cool!', key: '3', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png'}
   // ]);
 
-  const loadScene = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "PuzzleGame" }],
-    });
+  const firstGame = () => {
+    navigation.navigate("PuzzleGame");
   };
 
   return (
     <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
-      <Text style={[gStyle.header, { marginBottom: 20 }]}>Главная страница</Text>
+      <StatusBar color={isDarkMode() ? "white" : "black"} />
+      <Text style={gStyle.header}>Главная страница</Text>
       <View style={styles.container}>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.gamesTitle} onPress={() => loadScene()}>
-            <Text style={styles.titleText}>пятнашки</Text>
+          <TouchableOpacity style={styles.gamesTitle} onPress={() => firstGame()}>
             <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
-            <View style={styles.overlay} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>пятнашки</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.gamesTitle}>
-            <Text style={styles.titleText}>найди пару</Text>
-            {/* Добавьте иконку или изображение */}
-            <View style={styles.overlay} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.gamesTitle}>
-            <Text style={styles.titleText}>тетрис</Text>
-            {/* Добавьте иконку или изображение */}
-            <View style={styles.overlay} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gamesTitle}>
-            <Text style={styles.titleText}>2048</Text>
-            {/* Добавьте иконку или изображение */}
-            <View style={styles.overlay} />
+            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>найди пару</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <View style={styles.row}>
           <TouchableOpacity style={styles.gamesTitle}>
-            <Text style={styles.titleText}>поиск слов</Text>
-            {/* Добавьте иконку или изображение */}
-            <View style={styles.overlay} />
+            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>тетрис</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.gamesTitle}>
-            <Text style={styles.titleText}>четыре в ряд</Text>
-            {/* Добавьте иконку или изображение */}
-            <View style={styles.overlay} />
+            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>2048</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.gamesTitle}>
+            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>поиск слова</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.gamesTitle}>
+            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <View style={styles.overlay}>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>четыре в ряд</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -85,14 +89,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
   },
-  titleText: {
-    position: "absolute",
-    zIndex: 3,
-    color: "white",
-    fontFamily: "mt-light",
-    fontSize: 20,
-    marginBottom: 10,
-  },
   overlay: {
     position: "absolute",
     zIndex: 2,
@@ -101,7 +97,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 });
 

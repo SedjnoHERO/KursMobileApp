@@ -41,7 +41,8 @@ export default function Navigate() {
           name="PuzzleGame"
           component={PuzzleGame}
           options={{
-            title: "игра1",
+            title: "Пятнашки",
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

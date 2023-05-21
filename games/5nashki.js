@@ -1,8 +1,9 @@
-import { getStateFromPath } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { gStyle, isDarkMode } from "../styles/style";
+import { Ionicons } from "react-native-vector-icons";
 
-const PuzzleGame = () => {
+const PuzzleGame = ({ navigation }) => {
   const [board, setBoard] = useState([
     [1, 2, 3, 4],
     [5, 6, 7, 8],
@@ -11,10 +12,28 @@ const PuzzleGame = () => {
   ]);
 
   const [moves, setMoves] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  const loadScene = () => {
+    navigation.navigate("Main");
+  };
 
   useEffect(() => {
     checkGameCompletion();
   }, [board]);
+
+  useEffect(() => {
+    let interval;
+    if (isTimerRunning) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isTimerRunning]);
 
   const handlePress = (row, col) => {
     const newBoard = [...board];
@@ -25,6 +44,10 @@ const PuzzleGame = () => {
       newBoard[emptyCell.row][emptyCell.col] = temp;
       setBoard(newBoard);
       setMoves(moves + 1);
+
+      if (!isTimerRunning && moves === 0) {
+        setIsTimerRunning(true);
+      }
     }
   };
 
@@ -53,9 +76,10 @@ const PuzzleGame = () => {
     const flatBoard = board.flat();
     const isCompleted = flatBoard.every((cell, index) => (cell === null ? index === 15 : cell === index + 1));
 
-    if (isCompleted) {
+    if (isCompleted && moves > 0) {
+      setShowAlert(true);
       Alert.alert("Поздравляем!", "Вы завершили игру!");
-      setMoves(0);
+      setIsTimerRunning(false);
     }
   };
 
@@ -72,22 +96,35 @@ const PuzzleGame = () => {
     }
     setBoard(newBoard);
     setMoves(0);
+    setTimer(0);
+    setIsTimerRunning(false);
   };
 
   return (
-    <View style={styles.container}>
-      {board.map((row, rowIndex) => (
-        <View key={rowIndex} style={styles.row}>
-          {row.map((cell, colIndex) => (
-            <TouchableOpacity key={colIndex} style={styles.cell} onPress={() => handlePress(rowIndex, colIndex)}>
-              <Text style={styles.cellText}>{cell}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      ))}
-      <Text style={styles.movesText}>Ходы {moves}</Text>
-      <TouchableOpacity style={styles.button} onPress={shuffleBoard}>
-        <Text style={styles.buttonText}>Начать новую игру</Text>
+    <View style={[styles.container, gStyle.page]}>
+      <TouchableOpacity style={{ position: "absolute", top: 80, left: 45 }} onPress={loadScene}>
+        <Ionicons name="arrow-back" size={30} color={isDarkMode() ? "white" : "black"} />
+      </TouchableOpacity>
+
+      <Text style={[gStyle.title, { position: "absolute", top: 80 }]}>Пятнашки</Text>
+      <View style={styles.uppertext}>
+        <Text style={gStyle.text}>Ходы: {moves}</Text>
+        <Text style={gStyle.text}>Время: {timer} секунд</Text>
+      </View>
+      <View style={{ marginBottom: 25, marginTop: 20 }}>
+        {board.map((row, rowIndex) => (
+          <View key={rowIndex} style={styles.row}>
+            {row.map((cell, colIndex) => (
+              <TouchableOpacity key={colIndex} style={styles.cell} onPress={() => handlePress(rowIndex, colIndex)}>
+                <Text style={gStyle.specText}>{cell}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        ))}
+      </View>
+
+      <TouchableOpacity onPress={shuffleBoard}>
+        <Text style={gStyle.funcText}>Начать новую игру</Text>
       </TouchableOpacity>
     </View>
   );
@@ -99,9 +136,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  movesText: {
-    marginTop: 10,
-    fontSize: 18,
+  uppertext: {
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   row: {
     flexDirection: "row",
@@ -112,20 +151,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  cellText: {
-    fontSize: 24,
-  },
-  button: {
-    marginTop: 20,
-    backgroundColor: "blue",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
+    borderColor: isDarkMode() ? "white" : "black",
   },
 });
 

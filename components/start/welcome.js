@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { gStyle, isDarkMode } from "../../styles/style";
 
 export default function Welcome({ navigation }) {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontFamily: "mt-light",
     bottom: 0,
     fontSize: 18,
-    marginBottom: 46,
+    marginBottom: Platform.OS === "ios" ? 46 : 15,
     color: isDarkMode() ? "white" : "black",
   },
   logo: {
