@@ -18,19 +18,34 @@ export default function Main({ navigation }) {
     navigation.navigate("PuzzleGame");
   };
 
+  const secondGame = () => {
+    navigation.navigate("PairsGame");
+  };
+
+  const thirdGame = () => {
+    navigation.navigate("HangmanGame");
+  };
+
   return (
     <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
       <StatusBar color={isDarkMode() ? "white" : "black"} />
-      <Text style={gStyle.header}>Главная страница</Text>
+      <Text
+        style={[
+          gStyle.header,
+          { marginBottom: Platform.OS === "android" ? 10 : 0, top: Platform.OS === "android" ? -30 : 0 },
+        ]}
+      >
+        Главная страница
+      </Text>
       <View style={styles.container}>
         <View style={styles.row}>
           <TouchableOpacity style={styles.gamesTitle} onPress={() => firstGame()}>
-            <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
+            <Image source={require("../assets/1gameIcon.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
             <View style={styles.overlay}>
               <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>пятнашки</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gamesTitle}>
+          <TouchableOpacity style={styles.gamesTitle} onPress={() => secondGame()}>
             <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
             <View style={styles.overlay}>
               <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>найди пару</Text>
@@ -38,10 +53,10 @@ export default function Main({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.gamesTitle}>
+          <TouchableOpacity style={styles.gamesTitle} onPress={() => thirdGame()}>
             <Image source={require("../assets/5nashki.png")} style={{ width: "100%", height: "100%", zIndex: 1 }} />
             <View style={styles.overlay}>
-              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>тетрис</Text>
+              <Text style={[gStyle.specText, { zIndex: 3, fontSize: 20, color: "white" }]}>угадай слово</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.gamesTitle}>

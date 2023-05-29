@@ -2,7 +2,6 @@ import { StyleSheet, Appearance } from "react-native";
 
 export function isDarkMode() {
   const colorScheme = Appearance.getColorScheme();
-  console.log("colorScheme:", colorScheme);
   return colorScheme === "dark";
 }
 

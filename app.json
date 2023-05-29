@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "BrainTrainer",
-    "slug": "MobileApp",
+    "slug": "App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appIcon.png",
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/appIcon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.sedjnohero.App"

@@ -7,13 +7,11 @@ const Welcome = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleUsernameChange = (text) => {
-    const formattedText = text.replace(/[^a-zA-Z]/g, "").replace(/\s/g, "");
-    setUsername(formattedText);
+    setUsername(text);
   };
 
   const handlePasswordChange = (text) => {
-    const formattedText = text.replace(/[^a-zA-Z]/g, "").replace(/\s/g, "");
-    setPassword(formattedText);
+    setPassword(text);
   };
 
   const handleLogin = () => {

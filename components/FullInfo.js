@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import wordsData from "./words.json";
+// import wordsData from "./words.json";
 
 const SearchWordGame = () => {
   const [grid, setGrid] = useState([]); // Сетка букв

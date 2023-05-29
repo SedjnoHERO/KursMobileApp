@@ -9,7 +9,7 @@ export default function Welcome({ navigation }) {
       routes: [{ name: "auth" }],
     });
   };
-
+  //Интеллектус
   return (
     <View style={[styles.container, gStyle.page]}>
       <View style={styles.logoback}>
