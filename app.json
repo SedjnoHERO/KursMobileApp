@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Интеллектус",
+    "slug": "MobileApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/appIcon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/load.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sedjnohero.App"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/load.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.sedjnohero.App"
+    },
+    "web": {
+      "favicon": "./assets/appIcon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7e794ee0-f6ec-40b1-9eac-2c1de828cef6"
+      }
+    }
+  }
+}
