@@ -75,7 +75,8 @@ const PuzzleGame = ({ navigation }) => {
     if (isCompleted && moves > 0) {
       setShowAlert(true);
       Alert.alert("Поздравляем!", "Вы завершили игру!");
-      increaseProgress(3);
+      increaseProgress(7);
+      // поменять на 3 вместо 7
       setIsTimerRunning(false);
     }
   };

@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Animated,StyleSheet, Image } from 'react-native';
+import { View, Text, Animated, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gStyle, isDarkMode } from '../styles/style';
 import { BackArrow, Title } from '../styles/CONST';
+
+const levelImages = [
+  require("../assets/levels/level0.png"),
+  require("../assets/levels/level1.png"),
+  require("../assets/levels/level2.png"),
+  require("../assets/levels/level3.png"),
+  require("../assets/levels/level4.png"),
+  require("../assets/levels/level5.png"),
+];
 
 export default function Progress({ navigation }) {
   const [progress, setProgress] = useState(0);
   const animatedValue = new Animated.Value(0);
   const [level, setLevel] = useState(0);
   const [progressLimit, setProgressLimit] = useState(5);
-  const [LvlImage, setLvlImage] = useState(null);
 
   useEffect(() => {
     const loadProgress = async () => {
@@ -32,27 +40,21 @@ export default function Progress({ navigation }) {
     if (currentProgress >= 5 && currentProgress < 25) {
       setLevel(1);
       setProgressLimit(25);
-      setLvlImage(require("../assets/firstlevel.png"));
     } else if (currentProgress >= 25 && currentProgress < 50) {
       setLevel(2);
       setProgressLimit(50);
-      setLvlImage(require("../assets/secondlevel.png"));
-    } else if (currentProgress >= 50) {
+    } else if (currentProgress >= 50 && currentProgress < 100) {
       setLevel(3);
       setProgressLimit(100);
-      setLvlImage(require("../assets/thirdlevel.png"));
-    }else if (currentProgress >= 50) {
+    } else if (currentProgress >= 100 && currentProgress < 200) {
       setLevel(4);
       setProgressLimit(200);
-      setLvlImage(require("../assets/master.png"));
-    } else if (currentProgress >= 50) {
+    } else if (currentProgress >= 200 && currentProgress < 500) {
       setLevel(5);
       setProgressLimit(500);
-      setLvlImage(require("../assets/expert.png"));
-    } else {
+    } else if (currentProgress >= 0 && currentProgress < 5) {
       setLevel(0);
       setProgressLimit(5);
-      
     }
   };
 
@@ -69,18 +71,14 @@ export default function Progress({ navigation }) {
   return (
     <View style={gStyle.page}>
       <BackArrow navigation={navigation} />
-      <Title text="Прогресс"/>
+      <Title text="Активность"/>
 
-      <View>
-        <View style={{ shadowColor: '#000', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.9, shadowRadius: 7}}>
-          {LvlImage-1 && <Image source={LvlImage-1} style={{width:120,height:120, margin: 31}} />}
+      <View style={{flexDirection:'row', alignItems:'center'}}>
+        <Image source={levelImages[level - 1]} style={styles.smallBadges}/>
+        <View style={styles.badgeShadow}>
+          <Image source={levelImages[level]} style={{width:190,height:190, margin: 25}} />
         </View>
-        <View style={{ shadowColor: '#000', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.9, shadowRadius: 7}}>
-          {LvlImage && <Image source={LvlImage} style={{width:175,height:175, margin: 31}} />}
-        </View>
-        <View style={{ shadowColor: '#000', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.9, shadowRadius: 7}}>
-          {LvlImage+1 && <Image source={LvlImage+1} style={{width:120,height:120, margin: 31}} />}
-        </View>
+        <Image source={levelImages[level + 1]} style={styles.smallBadges} />
       </View>
 
       <View style={styles.container}>
@@ -92,12 +90,13 @@ export default function Progress({ navigation }) {
             <Animated.View style={[styles.barInd,{width: `${(progress / progressLimit) * 100}%`}]}/>
         </View>
         <Text style={gStyle.specText}>
-          {level+1}
+          {level + 1}
         </Text>
       </View>  
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
@@ -133,7 +132,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: 205,
     height: 29,
-    backgroundColor: isDarkMode() ? "#FFCA1D" : '#e6e6fa',
+    backgroundColor: isDarkMode() ? "#FFCA1D" : '#66CDAA',
     borderRadius: 12,
   },
+  smallBadges: {
+    width:120,
+    height:120,  
+    margin: 15    
+  },
+  badgeShadow: { 
+    shadowColor: '#000', 
+    shadowOffset: {width: 0, height: 5}, 
+    shadowOpacity: 0.3, 
+    shadowRadius: 6
+  }
 });

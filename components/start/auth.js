@@ -22,7 +22,7 @@ const Welcome = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
-    if (username.length === 0 || password.length < 6) {
+    if (username.length === 0 || password.length < 1) {
       Alert.alert("Внимание!", "Пожалуйста введите ваши данные.");
       return;
     }
@@ -63,7 +63,7 @@ const Welcome = ({ navigation }) => {
     }
   };
 
-  const isButtonDisabled = username === "" || password === "" || password.length < 6;
+  const isButtonDisabled = username === "" || password === ""
 
   return (
     <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
