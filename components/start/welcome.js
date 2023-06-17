@@ -6,7 +6,7 @@ export default function Welcome({ navigation }) {
   const loadScene = () => {
     navigation.reset({
       index: 0,
-      routes: [{ name: 'auth' }],
+      routes: [{ name: 'Auth' }],
     });
   };
   //Интеллектус

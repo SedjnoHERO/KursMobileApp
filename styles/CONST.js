@@ -1,13 +1,13 @@
-import { TouchableOpacity, Text, Image } from "react-native";
+import { TouchableOpacity, Modal, View, Text, Image, Pressable } from "react-native";
 import { gStyle, isDarkMode } from "./style";
 import { Ionicons } from '@expo/vector-icons'; 
-import React from 'react';
+import React, {useState} from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const loadScene = (navigation) => {
     navigation.navigate("Main");
 };
-  
+
 export const BackArrow = ({navigation}) => {
     return (
       <TouchableOpacity style={{ position: "absolute", top: 80, left: 45 }} onPress={() => loadScene(navigation)}>
@@ -49,7 +49,37 @@ export const increaseProgress = async (value) => {
 export const StartButton = ({onPress}) => {
   return (  
     <TouchableOpacity onPress={onPress}>
-    <Text style={[gStyle.funcText, { fontSize: 22 }]}>Новая игра</Text>
-  </TouchableOpacity>
+      <Text style={[gStyle.funcText, { fontSize: 22 }]}>Новая игра</Text>
+    </TouchableOpacity>
   ); 
+};
+
+export const CustomAlert = ({ text, isModalVisible }) => {
+  const [modalVisible, setModalVisible] = useState(isModalVisible);
+  const [showAlert, setShowAlert] = useState(false);
+
+  return (    
+    <View style={{position: 'absolute', flex: 1, justifyContent: 'center', alignItems: 'center',}}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{backgroundColor: isDarkMode() ? '#483D8B' : 'white', borderRadius: 20, padding: 35, alignItems: 'center', shadowColor: '#000', shadowOffset: {width: 0,height: 2}, shadowOpacity: 0.25,shadowRadius: 4,elevation: 5, width: '50%'}}>
+            <Text style={{marginBottom: 15,textAlign: 'center',}}>{text}</Text>
+            <Pressable style={{ backgroundColor: isDarkMode() ? "#FFCA1D" : "#66CDAA", borderRadius: 20, padding: 10, elevation: 2 }} 
+            onPress={() => {
+            setModalVisible(false);
+            setShowAlert(false);
+            }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Благодарю</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
 };

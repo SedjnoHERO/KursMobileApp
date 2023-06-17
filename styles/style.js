@@ -1,11 +1,11 @@
-import { StyleSheet, Appearance, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, Appearance, StatusBar } from "react-native";
 
 export function isDarkMode() {
   const colorScheme = Appearance.getColorScheme();
   return colorScheme === "dark";
 };
 
-export const CustomStatusBar = () => (
+const CustomStatusBar = () => (
   <StatusBar color={isDarkMode() ? "white" : "black"} />
 );
 

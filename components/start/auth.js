@@ -3,10 +3,19 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from "reac
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { gStyle, isDarkMode } from "../../styles/style";
 
-const Welcome = ({ navigation }) => {
+const Auth = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [existingUser, setExistingUser] = useState(false);
+  const isButtonDisabled = username === "" || password === ""
+
+  const handleUsernameChange = (text) => {
+    const regex = /^[a-zA-Zа-яА-Я]*$/;
+    if (regex.test(text)) {
+      setUsername(text);
+    }
+  };
+
   const checkExistingUser = async () => {
     try {
       const storedUsername = await AsyncStorage.getItem("UserName");
@@ -63,8 +72,6 @@ const Welcome = ({ navigation }) => {
     }
   };
 
-  const isButtonDisabled = username === "" || password === ""
-
   return (
     <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
       <Text style={{ color: isDarkMode() ? "white" : "black", fontFamily: "mt-light", fontSize: 24, marginBottom: 20, fontWeight: "500" }}>
@@ -72,9 +79,9 @@ const Welcome = ({ navigation }) => {
       </Text>
       <TextInput
         style={[styles.input, styles.placeholder, { marginBottom: 28 }]}
-        placeholder="Введите имя"
+        placeholder="Введите имя" 
         value={username}
-        onChangeText={(text) => setUsername(text)}
+        onChangeText={handleUsernameChange}
         color={isDarkMode() ? "white" : "black"}
       />
       <TextInput
@@ -116,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Welcome;
+export default Auth;

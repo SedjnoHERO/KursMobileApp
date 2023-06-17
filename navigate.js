@@ -1,6 +1,6 @@
 import React from "react";
 import Welcome from "./components/start/welcome";
-import auth from "./components/start/auth";
+import Auth from "./components/start/auth";
 import Main from "./components/main";
 import PuzzleGame from "./games/5nashki";
 import PairsGame from "./games/pairs";
@@ -25,8 +25,8 @@ export default function Navigate() {
           }}
         />
         <Stack.Screen
-          name="auth"
-          component={auth}
+          name="Auth"
+          component={Auth}
           options={{
             headerShown: false,
           }}

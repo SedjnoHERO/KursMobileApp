@@ -10,21 +10,21 @@ export default function Main({ navigation }) {
       <Title text='Главная страница'/>
         <View style={{flexDirection: "row"}}>
           <GameTile  
-            source={require("../assets/5naski.png")}   
+            source={require("../assets/gametiles/5naski.png")}   
             onPress={() => {navigation.navigate("PuzzleGame")}}
           />
           <GameTile  
-            source={require("../assets/pairs.png")}   
+            source={require("../assets/gametiles/pairs.png")}   
             onPress={() => {navigation.navigate("PairsGame")}}
           />
         </View>
         <View style={{flexDirection: "row"}}>
           <GameTile  
-            source={require("../assets/XO.png")}   
+            source={require("../assets/gametiles/XO.png")}   
             onPress={() => {navigation.navigate("XO")}}  
           />
           <GameTile  
-            source={require("../assets/find.png")}   
+            source={require("../assets/gametiles/find.png")}   
             onPress={() => {navigation.navigate("HangmanGame")}}  
           />
         </View> 

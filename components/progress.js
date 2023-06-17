@@ -72,26 +72,29 @@ export default function Progress({ navigation }) {
     <View style={gStyle.page}>
       <BackArrow navigation={navigation} />
       <Title text="Активность"/>
-
-      <View style={{flexDirection:'row', alignItems:'center'}}>
-        <Image source={levelImages[level - 1]} style={styles.smallBadges}/>
-        <View style={styles.badgeShadow}>
-          <Image source={levelImages[level]} style={{width:190,height:190, margin: 25}} />
+      <View style={{position: 'absolute', top:130, alignItems: 'center'}}>
+        
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+          <Image source={levelImages[level - 1]} style={styles.smallBadges}/>
+          <View style={styles.badgeShadow}>
+            <Image source={levelImages[level]} style={{width:210,height:210, margin: 31}} />
+          </View>
+          <Image source={levelImages[level + 1]} style={styles.smallBadges} />
         </View>
-        <Image source={levelImages[level + 1]} style={styles.smallBadges} />
-      </View>
 
-      <View style={styles.container}>
-        <Text style={gStyle.specText}>
-          {level}
-        </Text>
-         <View style={styles.bar}>
-            <Text style={[gStyle.specText, styles.overlayText]}>{`${progress}/${progressLimit}`}</Text>
-            <Animated.View style={[styles.barInd,{width: `${(progress / progressLimit) * 100}%`}]}/>
+        <View style={styles.container}>
+          <Text style={gStyle.specText}>
+            {level}
+          </Text>
+          <View style={styles.bar}>
+              <Text style={[gStyle.specText, styles.overlayText]}>{`${progress}/${progressLimit}`}</Text>
+              <Animated.View style={[styles.barInd,{width: `${(progress / progressLimit) * 100}%`}]}/>
+          </View>
+          <Text style={gStyle.specText}>
+            {level + 1}
+          </Text>
         </View>
-        <Text style={gStyle.specText}>
-          {level + 1}
-        </Text>
+
       </View>  
     </View>
   );
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
   bar: {
     width: 261,
     height: 31,
-    backgroundColor: isDarkMode() ? "#7B68EE" : '#e6e6fa',
+    backgroundColor: isDarkMode() ? "#B395F5" : '#e6e6fa',
     borderRadius: 12,
     borderColor: isDarkMode() ? '#483D8B' : '#7d7e80',
     borderWidth: 1,
@@ -136,14 +139,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   smallBadges: {
-    width:120,
-    height:120,  
-    margin: 15    
+    width:140,
+    height:140,  
   },
   badgeShadow: { 
     shadowColor: '#000', 
     shadowOffset: {width: 0, height: 5}, 
-    shadowOpacity: 0.3, 
-    shadowRadius: 6
+    shadowOpacity: 0.6, 
+    shadowRadius: 5
   }
 });

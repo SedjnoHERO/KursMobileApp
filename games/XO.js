@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { isDarkMode, gStyle } from '../styles/style';
-import { Title, BackArrow, increaseProgress, StartButton } from '../styles/CONST';
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlertYes } from '../styles/CONST';
 
 const XO = ({navigation}) => {
   const initialBoard = Array(9).fill('');
@@ -11,10 +11,10 @@ const XO = ({navigation}) => {
 
   useEffect(() => {
     checkWinner();
-    if (currentPlayer === 'O' && !winner) {
+    if (currentPlayer === 'O' && currentPlayer !== 'X' && !winner) {
       makeBotMove();
     }
-  }, [board]);
+  }, [board, currentPlayer]);
 
   const checkWinner = () => {
     const winningCombinations = [
@@ -33,12 +33,12 @@ const XO = ({navigation}) => {
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinner(board[a]);
         if (board[a] === 'X') {
-          Alert.alert('Поздравляем!','Выиграл Игрок.');
+          {CustomAlertYes()}
           increaseProgress(1);
         } else {
           Alert.alert('Вы проиграли!','Выиграл бот');
         }
-        return;
+        return;        
       }
     }
 
