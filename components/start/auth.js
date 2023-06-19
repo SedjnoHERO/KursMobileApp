@@ -42,10 +42,8 @@ const Auth = ({ navigation }) => {
         const storedPassword = await AsyncStorage.getItem("Password");
         if (username === storedUsername && password === storedPassword) {
           // Пользователь существует, переход на экран "Main"
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Main" }],
-          });
+          navigation.replace("Main");
+
         } else {
           Alert.alert("Ошибка!", "Неверный логин или пароль.");
         }
@@ -54,6 +52,7 @@ const Auth = ({ navigation }) => {
         await AsyncStorage.setItem("UserName", username);
         await AsyncStorage.setItem("Password", password);
         // Инициализируем прогресс для нового пользователя
+
         await AsyncStorage.setItem("Progress", JSON.stringify(0));
 
         // Обновляем значения storedUsername и storedPassword
@@ -61,11 +60,7 @@ const Auth = ({ navigation }) => {
         const storedPassword = password;
         console.log("Stored username:", storedUsername);
         console.log("Stored password:", storedPassword);
-
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Main" }],
-        });
+        navigation.replace("Main");
       }
     } catch (error) {
       console.log(error);
@@ -74,12 +69,12 @@ const Auth = ({ navigation }) => {
 
   return (
     <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
-      <Text style={{ color: isDarkMode() ? "white" : "black", fontFamily: "mt-light", fontSize: 24, marginBottom: 20, fontWeight: "500" }}>
+      <Text style={{ color: isDarkMode() ? "white" : "black", fontFamily: "mt-light", fontSize: 24, marginBottom: 20 }}>
         Авторизация
       </Text>
       <TextInput
         style={[styles.input, styles.placeholder, { marginBottom: 28 }]}
-        placeholder="Введите имя" 
+        placeholder="Введите имя"
         value={username}
         onChangeText={handleUsernameChange}
         color={isDarkMode() ? "white" : "black"}

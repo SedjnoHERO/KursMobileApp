@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { isDarkMode, gStyle } from '../styles/style';
-import { Title, BackArrow, increaseProgress, StartButton, CustomAlertYes } from '../styles/CONST';
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from '../styles/CONST';
 
-const XO = ({navigation}) => {
+const XO = ({ navigation }) => {
   const initialBoard = Array(9).fill('');
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState('X');
   const [winner, setWinner] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     checkWinner();
@@ -29,16 +30,17 @@ const XO = ({navigation}) => {
     ];
 
     for (let i = 0; i < winningCombinations.length; i++) {
+      console.log("анука")
       const [a, b, c] = winningCombinations[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinner(board[a]);
         if (board[a] === 'X') {
-          {CustomAlertYes()}
+          { showAlert && (<CustomAlert text={`Поздравляем \n Вы выиграли!`} isModalVisible={showAlert} setModalVisible={() => setShowAlert(false)} />) }
           increaseProgress(1);
         } else {
-          Alert.alert('Вы проиграли!','Выиграл бот');
+          Alert.alert('Вы проиграли!', 'Выиграл бот');
         }
-        return;        
+        return;
       }
     }
 
@@ -78,17 +80,17 @@ const XO = ({navigation}) => {
   return (
     <View style={gStyle.page}>
       <BackArrow navigation={navigation} />
-      <Title text="Крестики-нолики"/>
-      <View style={[styles.board, {marginBottom: 25, marginTop: 25}]}>
+      <Title text="Крестики-нолики" />
+      <View style={[styles.board, { marginBottom: 25, marginTop: 25 }]}>
         {board.map((cell, index) => (
           <TouchableOpacity key={index} style={styles.cell} onPress={() => makeMove(index)} >
-            <Text style={[gStyle.specText, {fontSize: 45}]}>{cell}</Text>
+            <Text style={[gStyle.specText, { fontSize: 45 }]}>{cell}</Text>
           </TouchableOpacity>
         ))}
       </View>
-        <View>
-          <StartButton onPress={resetGame}/>
-        </View>
+      <View>
+        <StartButton onPress={resetGame} />
+      </View>
     </View>
   );
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Animated, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gStyle, isDarkMode } from '../styles/style';
-import { BackArrow, Title } from '../styles/CONST';
+import { Title } from '../styles/CONST';
 
 const levelImages = [
   require("../assets/levels/level0.png"),
@@ -70,14 +70,13 @@ export default function Progress({ navigation }) {
 
   return (
     <View style={gStyle.page}>
-      <BackArrow navigation={navigation} />
-      <Title text="Активность"/>
-      <View style={{position: 'absolute', top:130, alignItems: 'center'}}>
-        
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <Image source={levelImages[level - 1]} style={styles.smallBadges}/>
-          <View style={styles.badgeShadow}>
-            <Image source={levelImages[level]} style={{width:210,height:210, margin: 31}} />
+      <Title text="Активность" />
+      <View style={{ position: 'absolute', top: 130, alignItems: 'center' }}>
+
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image source={levelImages[level - 1]} style={styles.smallBadges} />
+          <View style={gStyle.Shadow}>
+            <Image source={levelImages[level]} style={{ width: 210, height: 210, margin: 31 }} />
           </View>
           <Image source={levelImages[level + 1]} style={styles.smallBadges} />
         </View>
@@ -87,15 +86,15 @@ export default function Progress({ navigation }) {
             {level}
           </Text>
           <View style={styles.bar}>
-              <Text style={[gStyle.specText, styles.overlayText]}>{`${progress}/${progressLimit}`}</Text>
-              <Animated.View style={[styles.barInd,{width: `${(progress / progressLimit) * 100}%`}]}/>
+            <Text style={[gStyle.specText, styles.overlayText]}>{`${progress}/${progressLimit}`}</Text>
+            <Animated.View style={[styles.barInd, { width: `${(progress / progressLimit) * 100}%` }]} />
           </View>
           <Text style={gStyle.specText}>
             {level + 1}
           </Text>
         </View>
 
-      </View>  
+      </View>
     </View>
   );
 }
@@ -139,13 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   smallBadges: {
-    width:140,
-    height:140,  
+    width: 140,
+    height: 140,
   },
-  badgeShadow: { 
-    shadowColor: '#000', 
-    shadowOffset: {width: 0, height: 5}, 
-    shadowOpacity: 0.6, 
-    shadowRadius: 5
-  }
 });

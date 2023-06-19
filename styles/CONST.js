@@ -54,27 +54,29 @@ export const StartButton = ({ onPress }) => {
   );
 };
 
-export const CustomAlert = ({ text, isModalVisible }) => {
+export const CustomAlert = ({ text, isModalVisible, onClose }) => {
   const [modalVisible, setModalVisible] = useState(isModalVisible);
-  const [showAlert, setShowAlert] = useState(false);
 
   return (
-    <View style={{ position: 'absolute', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+    <View style={{ position: 'absolute', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }}>
+        }}
+      >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: isDarkMode() ? '#483D8B' : 'white', borderRadius: 20, padding: 35, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, width: '50%' }}>
-            <Text style={{ marginBottom: 15, textAlign: 'center', }}>{text}</Text>
-            <Pressable style={{ backgroundColor: isDarkMode() ? "#FFCA1D" : "#66CDAA", borderRadius: 20, padding: 10, elevation: 2 }}
+            <Text style={{ marginBottom: 15, textAlign: 'center' }}>{text}</Text>
+            <Pressable
+              style={{ backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA', borderRadius: 20, padding: 10, elevation: 2 }}
               onPress={() => {
                 setModalVisible(false);
-                setShowAlert(false);
-              }}>
+                onClose(false);
+              }}
+            >
               <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Благодарю</Text>
             </Pressable>
           </View>

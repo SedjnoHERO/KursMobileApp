@@ -75,7 +75,6 @@ const PuzzleGame = ({ navigation }) => {
     if (isCompleted && moves > 0) {
       setShowAlert(true);
       increaseProgress(7);
-      // поменять на 3 вместо 7
       setIsTimerRunning(false);
     }
   };
@@ -99,8 +98,8 @@ const PuzzleGame = ({ navigation }) => {
 
   return (
     <View style={gStyle.page}>
-      <BackArrow navigation={navigation}/>
-      <Title text="Пятнашки"/>
+      <BackArrow navigation={navigation} />
+      <Title text="Пятнашки" />
       <View style={styles.uppertext}>
         <Text style={gStyle.text}>Ходы: {moves}</Text>
         <Text style={gStyle.text}>Время: {timer} секунд</Text>
@@ -116,8 +115,13 @@ const PuzzleGame = ({ navigation }) => {
           </View>
         ))}
       </View>
-      {showAlert && (<CustomAlert text={`Поздравляем \n Вы выиграли!`} isModalVisible={showAlert} setModalVisible={()=>setShowAlert(false)}/>)}
-      <StartButton onPress={shuffleBoard}/>
+      {showAlert && (
+        <CustomAlert
+          text={`Поздравляем \n Вы выиграли!`}
+          isModalVisible={showAlert}
+          setShowAlert={setShowAlert} // Добавить эту строку
+        />
+      )}      <StartButton onPress={shuffleBoard} />
     </View>
   );
 };

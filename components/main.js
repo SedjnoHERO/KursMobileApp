@@ -2,7 +2,6 @@ import React from "react";
 import { View, StatusBar, Text, TouchableOpacity } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
 import { GameTile, Title } from "../styles/CONST";
-import Tabs from "../TabNavigator";
 
 export default function Main({ navigation }) {
   return (
@@ -29,9 +28,6 @@ export default function Main({ navigation }) {
           onPress={() => { navigation.navigate("HangmanGame") }}
         />
       </View>
-      <TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
-        <Text style={gStyle.specText}>Начать</Text>
-      </TouchableOpacity>
     </View>
   );
 }

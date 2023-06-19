@@ -45,5 +45,13 @@ export const gStyle = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
   },
+
+  Shadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.6,
+    shadowRadius: 5
+  },
+
   customStatusBar: <CustomStatusBar />,
 });
