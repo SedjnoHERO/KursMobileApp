@@ -29,6 +29,24 @@ export default function Settings({ navigation }) {
         }
     };
 
+    const [randomAvatar, setRandomAvatar] = useState(null);
+
+    const [email, setEmail] = useState('');
+    const handleEmailChange = (text) => {
+        setEmail(text);
+    };
+
+    useEffect(() => {
+        getStoredUsername();
+        selectRandomAvatar();
+    }, []);
+    const selectRandomAvatar = () => {
+        const randomAvatarIndex = Math.floor(Math.random() * avatars.length);
+        const selectedAvatar = avatars[randomAvatarIndex];
+        setRandomAvatar(selectedAvatar);
+    };
+
+
     return (
         <View style={[gStyle.page, { justifyContent: 'flex-start' }]}>
             <Title text='Параметры' />
@@ -36,14 +54,14 @@ export default function Settings({ navigation }) {
 
                 <TouchableOpacity>
                     <View style={gStyle.Shadow}>
-                        <Image source={avatars} style={styles.avatarImage} />
+                        {randomAvatar && <Image source={randomAvatar} style={styles.avatarImage} />}
                     </View>
                 </TouchableOpacity>
 
                 <View style={{ marginTop: 23 }}>
                     <View style={{
                         borderRadius: 6,
-                        height: 26,
+                        height: 30,
                         paddingHorizontal: 10,
                         backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA',
                     }}>
@@ -58,13 +76,20 @@ export default function Settings({ navigation }) {
                 left: -60,
                 marginTop: 30
             }}>
-                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Имя</Text>
-                <Text style={[gStyle.text, { fontSize: 16, textAlign: 'left', marginBottom: 15 }]}>
+                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Имя</Text>
+                <Text style={[gStyle.text, { fontSize: 18, textAlign: 'left', marginBottom: 15 }]}>
                     {username}
                 </Text>
-                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
-                <TextInput style={{ marginBottom: 15, backgroundColor: '#E6E6FA', height: 40 }} />
-                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
+                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
+                <TextInput
+                    style={{ marginBottom: 15, backgroundColor: '#E6E6FA', height: 40 }}
+                    value={email}
+                    onChangeText={handleEmailChange}
+                    placeholder="Введите почту"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
                 <Text style={[gStyle.text, { fontSize: 16, textAlign: 'left', marginBottom: 15 }]}>
                     {`{имя}`}
                 </Text>

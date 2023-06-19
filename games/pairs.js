@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
-import { Title, BackArrow, increaseProgress, StartButton } from "../styles/CONST";
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from "../styles/CONST";
 
 const pairs = ["👺", "🍕", "🐼", "🐒", "🐙", "🍔", "🐳", "❤️"];
 
@@ -10,6 +10,8 @@ const PairsGame = ({ navigation }) => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [isShowingCards, setIsShowingCards] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+
 
   useEffect(() => {
     initializeGame();
@@ -70,7 +72,7 @@ const PairsGame = ({ navigation }) => {
         setSelectedCards([]);
 
         if (matchedCards.length === pairs.length * 2 - 2) {
-          Alert.alert("Поздравляем!", "Вы завершили игру!");
+          setShowAlert(true);
           increaseProgress(1);
         }
       } else {
@@ -95,8 +97,8 @@ const PairsGame = ({ navigation }) => {
 
   return (
     <View style={[gStyle.page]}>
-      <BackArrow navigation={navigation}/>
-      <Title text="Найди пару"/>
+      <BackArrow navigation={navigation} />
+      <Title text="Найди пару" />
       <View style={styles.cardsContainer}>
         {cards.map((card, index) => (
           <TouchableOpacity
@@ -115,7 +117,13 @@ const PairsGame = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
-      <StartButton onPress={initializeGame}/>
+      {showAlert && (
+        <CustomAlert
+          text={`Поздравляем\nВы выиграли!`}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
+      <StartButton onPress={initializeGame} />
     </View>
   );
 };

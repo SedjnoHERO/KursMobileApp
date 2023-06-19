@@ -17,6 +17,15 @@ const XO = ({ navigation }) => {
     }
   }, [board, currentPlayer]);
 
+  useEffect(() => {
+    if (winner === 'X') {
+      setShowAlert(true);
+      increaseProgress(1);
+    } else if (winner === 'O') {
+      Alert.alert('Вы проиграли!', 'Выиграл бот');
+    }
+  }, [winner]);
+
   const checkWinner = () => {
     const winningCombinations = [
       [0, 1, 2],
@@ -33,12 +42,6 @@ const XO = ({ navigation }) => {
       const [a, b, c] = winningCombinations[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinner(board[a]);
-        if (board[a] === 'X') {
-          { showAlert && (<CustomAlert text={`Поздравляем \n Вы выиграли!`} isModalVisible={showAlert} setModalVisible={() => setShowAlert(false)} />) }
-          increaseProgress(1);
-        } else {
-          Alert.alert('Вы проиграли!', 'Выиграл бот');
-        }
         return;
       }
     }
@@ -54,7 +57,6 @@ const XO = ({ navigation }) => {
       updatedBoard[index] = currentPlayer;
       setBoard(updatedBoard);
       setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
-
     }
   };
 
@@ -90,6 +92,13 @@ const XO = ({ navigation }) => {
       <View>
         <StartButton onPress={resetGame} />
       </View>
+      {showAlert && (
+        <CustomAlert
+          text={`Поздравляем\nВы выиграли!`}
+          isModalVisible={showAlert}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </View>
   );
 };
@@ -105,7 +114,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderWidth: 1,
-    borderColor: isDarkMode() ? "white" : "black",
+    borderColor: isDarkMode() ? 'white' : 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },

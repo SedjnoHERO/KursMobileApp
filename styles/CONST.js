@@ -77,7 +77,7 @@ export const CustomAlert = ({ text, isModalVisible, onClose }) => {
                 onClose(false);
               }}
             >
-              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Благодарю</Text>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Спасибо!</Text>
             </Pressable>
           </View>
         </View>

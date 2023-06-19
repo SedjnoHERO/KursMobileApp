@@ -117,11 +117,12 @@ const PuzzleGame = ({ navigation }) => {
       </View>
       {showAlert && (
         <CustomAlert
-          text={`Поздравляем \n Вы выиграли!`}
+          text={`Поздравляем\nВы выиграли!`}
           isModalVisible={showAlert}
-          setShowAlert={setShowAlert} // Добавить эту строку
+          onClose={() => setShowAlert(false)}
         />
-      )}      <StartButton onPress={shuffleBoard} />
+      )}
+      <StartButton onPress={shuffleBoard} />
     </View>
   );
 };
