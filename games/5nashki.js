@@ -98,7 +98,7 @@ const PuzzleGame = ({ navigation }) => {
   };
 
   return (
-    <View style={[gStyle.page]}>
+    <View style={gStyle.page}>
       <BackArrow navigation={navigation}/>
       <Title text="Пятнашки"/>
       <View style={styles.uppertext}>

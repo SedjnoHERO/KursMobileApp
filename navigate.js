@@ -7,6 +7,7 @@ import PairsGame from "./games/pairs";
 import HangmanGame from "./games/HangmanGame";
 import XO from './games/XO';
 import Progress from "./components/progress";
+import Settings from "./components/settings";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -20,64 +21,47 @@ export default function Navigate() {
         <Stack.Screen
           name="Welcome"
           component={Welcome}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Auth"
           component={Auth}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Main"
           component={Main}
-          options={{
-            title: "Главная",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="PuzzleGame"
           component={PuzzleGame}
-          options={{
-            title: "Пятнашки",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="PairsGame"
           component={PairsGame}
-          options={{
-            title: "Найди пару",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="HangmanGame"
           component={HangmanGame}
-          options={{
-            title: "HangmanGame",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="XO"
           component={XO}
-          options={{
-            title: "XO",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="progress"
           component={Progress}
-          options={{
-            title: "progress",
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
