@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Animated, StyleSheet, Image } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gStyle, isDarkMode } from '../styles/style';
 import { Title } from '../styles/CONST';
@@ -15,6 +16,7 @@ const levelImages = [
 
 export default function Progress({ navigation }) {
   const [progress, setProgress] = useState(0);
+  const isFocused = useIsFocused();
   const animatedValue = new Animated.Value(0);
   const [level, setLevel] = useState(0);
   const [progressLimit, setProgressLimit] = useState(5);
@@ -33,8 +35,11 @@ export default function Progress({ navigation }) {
       }
     };
 
-    loadProgress();
-  }, []);
+    if (isFocused) {
+      loadProgress();
+    }
+  }, [isFocused]);
+
 
   const updateLevel = (currentProgress) => {
     if (currentProgress >= 5 && currentProgress < 25) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
 import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from "../styles/CONST";
 

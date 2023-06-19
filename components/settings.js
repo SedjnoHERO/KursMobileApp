@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Pressable, Image, Modal, FlatList, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { gStyle, isDarkMode } from '../styles/style';
 import { Title } from '../styles/CONST';
@@ -14,8 +14,6 @@ const avatars = [
 ];
 
 export default function Settings({ navigation }) {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedAvatar, setSelectedAvatar] = useState(avatars[0]);
     const [username, setUsername] = useState('');
 
     useEffect(() => {
@@ -31,37 +29,14 @@ export default function Settings({ navigation }) {
         }
     };
 
-    const edit = () => {
-        <View><Feather name='edit' size={14} color={isDarkMode() ? 'white' : 'black'} /></View>
-    };
-
-    const handleOpenModal = () => {
-        setModalVisible(true);
-    };
-
-    const handleCloseModal = () => {
-        setModalVisible(false);
-    };
-
-    const handleSelectAvatar = (avatar) => {
-        setSelectedAvatar(avatar);
-        setModalVisible(false);
-    };
-
-    const renderItem = ({ item }) => (
-        <Pressable onPress={() => handleSelectAvatar(item)} style={styles.avatarContainer}>
-            <Image source={item} style={styles.avatarImage} />
-        </Pressable>
-    );
-
     return (
         <View style={[gStyle.page, { justifyContent: 'flex-start' }]}>
             <Title text='Параметры' />
             <View style={{ marginTop: 138, alignItems: 'center' }}>
 
-                <TouchableOpacity onLongPress={handleOpenModal}>
+                <TouchableOpacity>
                     <View style={gStyle.Shadow}>
-                        <Image source={selectedAvatar} style={styles.avatarImage} />
+                        <Image source={avatars} style={styles.avatarImage} />
                     </View>
                 </TouchableOpacity>
 
@@ -76,25 +51,24 @@ export default function Settings({ navigation }) {
                     </View>
                 </View>
             </View>
-            <View>
 
-                <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-                    <Text style={gStyle.text}>Имя</Text>
-                    <TextInput><Text style={gStyle.text}>{username}</Text></TextInput><Feather name='edit' size={14} color={isDarkMode() ? 'white' : 'black'} />
-                </View>
-
+            <View style={{
+                display: 'flex',
+                flexDirection: 'column',
+                left: -60,
+                marginTop: 30
+            }}>
+                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Имя</Text>
+                <Text style={[gStyle.text, { fontSize: 16, textAlign: 'left', marginBottom: 15 }]}>
+                    {username}
+                </Text>
+                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
+                <TextInput style={{ marginBottom: 15, backgroundColor: '#E6E6FA', height: 40 }} />
+                <Text style={[gStyle.title, { fontSize: 18, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
+                <Text style={[gStyle.text, { fontSize: 16, textAlign: 'left', marginBottom: 15 }]}>
+                    {`{имя}`}
+                </Text>
             </View>
-
-            <Modal visible={modalVisible} animationType="slide" onRequestClose={handleCloseModal}>
-                <View style={styles.modalContainer}>
-                    <FlatList
-                        data={avatars}
-                        renderItem={renderItem}
-                        keyExtractor={(_, index) => index.toString()}
-                        numColumns={3}
-                    />
-                </View>
-            </Modal>
         </View >
     );
 }
