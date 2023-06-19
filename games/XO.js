@@ -30,7 +30,6 @@ const XO = ({ navigation }) => {
     ];
 
     for (let i = 0; i < winningCombinations.length; i++) {
-      console.log("анука")
       const [a, b, c] = winningCombinations[i];
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         setWinner(board[a]);
