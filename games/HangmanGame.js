@@ -53,7 +53,7 @@ const HangmanGame = ({ navigation }) => {
       if (updatedDisplayWord.replace(/ /g, '') === word) {
         setShowAlert(true);
         increaseProgress(2);
-        gamesStat('Hangman');
+        gamesStat('Угадай слово');
       }
     }
   };

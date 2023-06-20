@@ -75,7 +75,7 @@ const PuzzleGame = ({ navigation }) => {
     if (isCompleted && moves > 0) {
       setShowAlert(true);
       increaseProgress(7);
-      gamesStat('Puzzle');
+      gamesStat('Пятнашки');
       setIsTimerRunning(false);
     }
   };

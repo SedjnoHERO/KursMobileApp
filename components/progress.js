@@ -29,14 +29,14 @@ export default function Progress({ navigation }) {
 
   const fetchProgressData = async () => {
     try {
-      const keys = ['Puzzle', 'Pairs', 'XO', 'Hangman'];
+      const keys = ['Пятнашки', 'Найди пару', 'Крестики-нолики', 'Угадай слово'];
       const progressData = await Promise.all(keys.map(async (gameName) => {
         const storedProgress = await AsyncStorage.getItem(gameName);
         return [gameName, storedProgress || 0];
       }));
       setProgressData(progressData);
     } catch (error) {
-      console.log('Error fetching progress data:', error);
+      console.log(error);
     }
   };
 
@@ -120,8 +120,10 @@ export default function Progress({ navigation }) {
         </View>
 
         <View>
+          <Text style={[gStyle.title, { fontSize: 22, marginBottom: 41 }]}>Количество игр сыграно</Text>
+
           {progressData.map(([gameName, progress], index) => (
-            <Text key={index}>{gameName} Progress: {progress}</Text>
+            <Text style={[gStyle.specText, { fontSize: 18, textAlign: 'left', marginBottom: 20 }]} key={index}>{gameName}: {progress}</Text>
           ))}
         </View>
 
@@ -139,7 +141,8 @@ const styles = StyleSheet.create({
     backgroundColor: isDarkMode() ? "#7B68EE" : '#e6e6fa',
     borderRadius: 12,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    marginBottom: 23
   },
   bar: {
     width: 261,

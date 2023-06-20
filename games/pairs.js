@@ -74,7 +74,7 @@ const PairsGame = ({ navigation }) => {
         if (matchedCards.length === pairs.length * 2 - 2) {
           setShowAlert(true);
           increaseProgress(1);
-          gamesStat('Pairs');
+          gamesStat('Найди пару');
         }
       } else {
         setTimeout(() => {

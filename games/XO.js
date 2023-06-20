@@ -21,7 +21,7 @@ const XO = ({ navigation }) => {
     if (winner === 'X') {
       setShowAlert(true);
       increaseProgress(1);
-      gamesStat('XO');
+      gamesStat('Крестики-нолики');
     } else if (winner === 'O') {
       Alert.alert('Вы проиграли!', 'Выиграл бот');
     }
