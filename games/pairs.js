@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
 import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from "../styles/CONST";
 
@@ -11,11 +11,23 @@ const PairsGame = ({ navigation }) => {
   const [matchedCards, setMatchedCards] = useState([]);
   const [isShowingCards, setIsShowingCards] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
-
+  const [timer, setTimer] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     initializeGame();
   }, []);
+
+  useEffect(() => {
+    let interval;
+    if (isTimerRunning) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isTimerRunning]);
 
   const initializeGame = () => {
     const allCards = [...pairs, ...pairs];
@@ -30,8 +42,10 @@ const PairsGame = ({ navigation }) => {
     setMatchedCards([]);
 
     setIsShowingCards(true);
+    setTimer(0); // Обнуляем таймер
     setTimeout(() => {
       setIsShowingCards(false);
+      setIsTimerRunning(true);
     }, 1000);
   };
 
@@ -75,6 +89,7 @@ const PairsGame = ({ navigation }) => {
           setShowAlert(true);
           increaseProgress(1);
           gamesStat('Найди пару');
+          setIsTimerRunning(false);
         }
       } else {
         setTimeout(() => {
@@ -84,12 +99,12 @@ const PairsGame = ({ navigation }) => {
     }
   };
 
-  const isCardSelected = (index) => {
-    return selectedCards.includes(index);
-  };
-
   const isCardMatched = (index) => {
     return matchedCards.includes(index);
+  };
+
+  const isCardSelected = (index) => {
+    return selectedCards.includes(index);
   };
 
   const isCardFlipped = (index) => {
@@ -100,6 +115,9 @@ const PairsGame = ({ navigation }) => {
     <View style={[gStyle.page]}>
       <BackArrow navigation={navigation} />
       <Title text="Найди пару" />
+      <View style={styles.uppertext}>
+        <Text style={gStyle.text}>Время: {timer} секунд</Text>
+      </View>
       <View style={styles.cardsContainer}>
         {cards.map((card, index) => (
           <TouchableOpacity
@@ -120,7 +138,7 @@ const PairsGame = ({ navigation }) => {
       </View>
       {showAlert && (
         <CustomAlert
-          text={`Поздравляем\nВы выиграли!`}
+          text={`Поздравляем\nВы выиграли!\n \nВремя: ${timer}`}
           onClose={() => setShowAlert(false)}
         />
       )}
@@ -130,6 +148,13 @@ const PairsGame = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  uppertext: {
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginBottom: 10,
+  },
   cardsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
