@@ -15,7 +15,7 @@ import PuzzleGame from "./games/5nashki";
 import Progress from "./components/progress";
 import Settings from "./components/settings";
 import { isDarkMode } from "./styles/style";
-import { Keyboard, View } from "react-native";
+import { Keyboard, Platform, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -54,17 +54,17 @@ function TabNavigator() {
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
-
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.3,
             shadowRadius: 4,
+            zIndex: 999,
 
-            zIndex: 999
           },
           tabBarShowLabel: false,
           tabBarVisible: isTabBarVisible // Скрытие/показ Tab Bar
         }}
+
       >
         <Tab.Screen
           name='Progress'
@@ -75,6 +75,13 @@ function TabNavigator() {
               <Ionicons
                 name='bar-chart-outline'
                 size={(focused ? 50 : 45)}
+                style={
+                  Platform.OS === 'ios' && {
+                    position: 'absolute',
+                    top: 5,
+                    left: 40
+                  }
+                }
                 left={20}
                 color={isDarkMode() ? (focused ? '#FFCA1D' : 'white') : (focused ? '#66CDAA' : 'black')}
               />
@@ -89,6 +96,12 @@ function TabNavigator() {
               <Ionicons
                 name='home-outline'
                 size={(focused ? 50 : 45)}
+                style={
+                  Platform.OS === 'ios' && {
+                    position: 'absolute',
+                    top: 5
+                  }
+                }
                 color={isDarkMode() ? (focused ? '#FFCA1D' : 'white') : (focused ? '#66CDAA' : 'black')}
               />
             ),
@@ -104,6 +117,13 @@ function TabNavigator() {
                 name='settings-outline'
                 size={(focused ? 50 : 45)}
                 right={20}
+                style={
+                  Platform.OS === 'ios' && {
+                    position: 'absolute',
+                    right: 40,
+                    top: 5
+                  }
+                }
                 color={isDarkMode() ? (focused ? '#FFCA1D' : 'white') : (focused ? '#66CDAA' : 'black')}
               />
             ),
