@@ -3,7 +3,7 @@ import { View, Text, Animated, StyleSheet, Image } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gStyle, isDarkMode } from '../styles/style';
-import { Title } from '../styles/CONST';
+import { Title, gamesStat } from '../styles/CONST';
 
 const levelImages = [
   require("../assets/levels/level0.png"),
@@ -20,6 +20,25 @@ export default function Progress({ navigation }) {
   const animatedValue = new Animated.Value(0);
   const [level, setLevel] = useState(0);
   const [progressLimit, setProgressLimit] = useState(5);
+  const [progressData, setProgressData] = useState([]);
+
+
+  useEffect(() => {
+    fetchProgressData();
+  }, []);
+
+  const fetchProgressData = async () => {
+    try {
+      const keys = ['Puzzle', 'Pairs', 'XO', 'Hangman'];
+      const progressData = await Promise.all(keys.map(async (gameName) => {
+        const storedProgress = await AsyncStorage.getItem(gameName);
+        return [gameName, storedProgress || 0];
+      }));
+      setProgressData(progressData);
+    } catch (error) {
+      console.log('Error fetching progress data:', error);
+    }
+  };
 
   useEffect(() => {
     const loadProgress = async () => {
@@ -37,6 +56,7 @@ export default function Progress({ navigation }) {
 
     if (isFocused) {
       loadProgress();
+      fetchProgressData();
     }
   }, [isFocused]);
 
@@ -97,6 +117,12 @@ export default function Progress({ navigation }) {
           <Text style={gStyle.specText}>
             {level + 1}
           </Text>
+        </View>
+
+        <View>
+          {progressData.map(([gameName, progress], index) => (
+            <Text key={index}>{gameName} Progress: {progress}</Text>
+          ))}
         </View>
 
       </View>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
-import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from "../styles/CONST";
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from "../styles/CONST";
 
 const PuzzleGame = ({ navigation }) => {
   const [board, setBoard] = useState([
@@ -75,6 +75,7 @@ const PuzzleGame = ({ navigation }) => {
     if (isCompleted && moves > 0) {
       setShowAlert(true);
       increaseProgress(7);
+      gamesStat('Puzzle');
       setIsTimerRunning(false);
     }
   };
@@ -117,7 +118,7 @@ const PuzzleGame = ({ navigation }) => {
       </View>
       {showAlert && (
         <CustomAlert
-          text={`Поздравляем\nВы выиграли!`}
+          text={`Поздравляем\nВы выиграли!\n \nШаги: ${moves} Время: ${timer}`}
           isModalVisible={showAlert}
           onClose={() => setShowAlert(false)}
         />

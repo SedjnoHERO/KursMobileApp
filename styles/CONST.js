@@ -31,7 +31,7 @@ export const GameTile = ({ source, onPress }) => {
     </TouchableOpacity>
   );
 };
-
+// общий прогресс
 export const increaseProgress = async (value) => {
   try {
     const storedProgress = await AsyncStorage.getItem('Progress');
@@ -45,6 +45,22 @@ export const increaseProgress = async (value) => {
     console.error(error);
   }
 };
+// количество игр
+export const gamesStat = async (gameName) => {
+  try {
+    const storedProgress = await AsyncStorage.getItem(gameName);
+    let progress = 0;
+    if (storedProgress) {
+      progress = JSON.parse(storedProgress);
+    }
+    progress += 1;
+    await AsyncStorage.setItem(gameName, JSON.stringify(progress));
+    console.log(`Updated played games in ${gameName}: ${progress}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 export const StartButton = ({ onPress }) => {
   return (
@@ -69,15 +85,15 @@ export const CustomAlert = ({ text, isModalVisible, onClose }) => {
       >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: isDarkMode() ? '#483D8B' : 'white', borderRadius: 20, padding: 35, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, width: '50%' }}>
-            <Text style={{ marginBottom: 15, textAlign: 'center' }}>{text}</Text>
+            <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 16 }}>{text}</Text>
             <Pressable
-              style={{ backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA', borderRadius: 20, padding: 10, elevation: 2 }}
+              style={{ backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA', borderRadius: 20, padding: 15, elevation: 2 }}
               onPress={() => {
                 setModalVisible(false);
                 onClose(false);
               }}
             >
-              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Спасибо!</Text>
+              <Text style={{ color: 'white', fontWeight: 'bold', textAlign: 'center', fontSize: 18 }}>Спасибо!</Text>
             </Pressable>
           </View>
         </View>

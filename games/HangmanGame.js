@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { gStyle } from '../styles/style';
-import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from '../styles/CONST';
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from '../styles/CONST';
 import wordsData from './words.json';
 
 const HangmanGame = ({ navigation }) => {
@@ -53,6 +53,7 @@ const HangmanGame = ({ navigation }) => {
       if (updatedDisplayWord.replace(/ /g, '') === word) {
         setShowAlert(true);
         increaseProgress(2);
+        gamesStat('Hangman');
       }
     }
   };

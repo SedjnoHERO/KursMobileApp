@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { isDarkMode, gStyle } from '../styles/style';
-import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from '../styles/CONST';
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from '../styles/CONST';
 
 const XO = ({ navigation }) => {
   const initialBoard = Array(9).fill('');
@@ -21,6 +21,7 @@ const XO = ({ navigation }) => {
     if (winner === 'X') {
       setShowAlert(true);
       increaseProgress(1);
+      gamesStat('XO');
     } else if (winner === 'O') {
       Alert.alert('Вы проиграли!', 'Выиграл бот');
     }

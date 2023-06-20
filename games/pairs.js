@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { gStyle, isDarkMode } from "../styles/style";
-import { Title, BackArrow, increaseProgress, StartButton, CustomAlert } from "../styles/CONST";
+import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from "../styles/CONST";
 
 const pairs = ["👺", "🍕", "🐼", "🐒", "🐙", "🍔", "🐳", "❤️"];
 
@@ -74,6 +74,7 @@ const PairsGame = ({ navigation }) => {
         if (matchedCards.length === pairs.length * 2 - 2) {
           setShowAlert(true);
           increaseProgress(1);
+          gamesStat('Pairs');
         }
       } else {
         setTimeout(() => {
