@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { isDarkMode, gStyle } from '../styles/style';
 import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from '../styles/CONST';
 
@@ -23,7 +23,9 @@ const XO = ({ navigation }) => {
       increaseProgress(1);
       gamesStat('Крестики-нолики');
     } else if (winner === 'O') {
-      Alert.alert('Вы проиграли!', 'Выиграл бот');
+      setShowAlert(true);
+    } else if (winner === 'Draw') {
+      setShowAlert(true);
     }
   }, [winner]);
 
@@ -85,7 +87,7 @@ const XO = ({ navigation }) => {
       <Title text="Крестики-нолики" />
       <View style={[styles.board, { marginBottom: 25, marginTop: 25 }]}>
         {board.map((cell, index) => (
-          <TouchableOpacity key={index} style={styles.cell} onPress={() => makeMove(index)} >
+          <TouchableOpacity key={index} style={styles.cell} onPress={() => makeMove(index)}>
             <Text style={[gStyle.specText, { fontSize: 45 }]}>{cell}</Text>
           </TouchableOpacity>
         ))}
@@ -95,7 +97,13 @@ const XO = ({ navigation }) => {
       </View>
       {showAlert && (
         <CustomAlert
-          text={`Поздравляем\nВы выиграли!`}
+          text={
+            winner === 'X'
+              ? 'Поздравляем\nВы выиграли!'
+              : winner === 'O'
+                ? 'Вы проиграли!\nВыиграл бот'
+                : 'Ничья!'
+          }
           isModalVisible={showAlert}
           onClose={() => setShowAlert(false)}
         />

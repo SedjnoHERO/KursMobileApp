@@ -16,6 +16,12 @@ const PuzzleGame = ({ navigation }) => {
   const [timer, setTimer] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
+  // const formatTime = (seconds) => {
+  //   const minutes = Math.floor(seconds / 60);
+  //   const remainingSeconds = seconds % 60;
+  //   return `${minutes < 10 ? "0" + minutes : minutes}:${remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds}`;
+  // };
+
   useEffect(() => {
     checkGameCompletion();
   }, [board]);
@@ -74,7 +80,7 @@ const PuzzleGame = ({ navigation }) => {
 
     if (isCompleted && moves > 0) {
       setShowAlert(true);
-      increaseProgress(7);
+      increaseProgress(3);
       gamesStat('Пятнашки');
       setIsTimerRunning(false);
     }
@@ -118,7 +124,7 @@ const PuzzleGame = ({ navigation }) => {
       </View>
       {showAlert && (
         <CustomAlert
-          text={`Поздравляем\nВы выиграли!\n \nШаги: ${moves} Время: ${timer}`}
+          text={`Поздравляем\nВы выиграли!\n \nШаги: ${moves}\n Время: ${timer}`}
           isModalVisible={showAlert}
           onClose={() => setShowAlert(false)}
         />

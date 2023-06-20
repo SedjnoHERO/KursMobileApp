@@ -85,7 +85,7 @@ export const CustomAlert = ({ text, isModalVisible, onClose }) => {
       >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: isDarkMode() ? '#483D8B' : 'white', borderRadius: 20, padding: 35, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, width: '50%' }}>
-            <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 16 }}>{text}</Text>
+            <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 18 }}>{text}</Text>
             <Pressable
               style={{ backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA', borderRadius: 20, padding: 15, elevation: 2 }}
               onPress={() => {
