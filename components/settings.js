@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, ImageBackground, KeyboardAvoidingView, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { gStyle, isDarkMode } from '../styles/style';
 import { Title } from '../styles/CONST';
@@ -29,35 +29,61 @@ export default function Settings({ navigation }) {
         }
     };
 
-    const [randomAvatar, setRandomAvatar] = useState(null);
-
     const [email, setEmail] = useState('');
+    const [isPhoneValid, setIsPhoneValid] = useState(true);
+    const [phone, setPhone] = useState('');
+
     const handleEmailChange = (text) => {
         setEmail(text);
     };
+
+    const validateEmail = (email) => {
+        const regex = /@(mail\.ru|gmail\.com)$/;
+        return regex.test(email);
+    };
+
+    const isEmailValid = validateEmail(email);
+
+    const handlePhoneChange = (text) => {
+        const cleanedText = text.replace(/[^0-9+]/g, '');
+        setPhone(cleanedText);
+        setIsPhoneValid(validatePhone(cleanedText));
+    };
+
+
+    const validatePhone = (phone) => {
+        const phoneRegex = /^\d{12}$/;
+        return phoneRegex.test(phone);
+    };
+
+    const [randomAvatar, setRandomAvatar] = useState(null);
 
     useEffect(() => {
         getStoredUsername();
         selectRandomAvatar();
     }, []);
+
     const selectRandomAvatar = () => {
         const randomAvatarIndex = Math.floor(Math.random() * avatars.length);
         const selectedAvatar = avatars[randomAvatarIndex];
         setRandomAvatar(selectedAvatar);
     };
 
-
     return (
         <View style={[gStyle.page, { justifyContent: 'flex-start' }]}>
             <Title text='Параметры' />
             <View style={{ marginTop: 138, alignItems: 'center' }}>
-
-                <TouchableOpacity>
-                    <View style={gStyle.Shadow}>
-                        {randomAvatar && <Image source={randomAvatar} style={styles.avatarImage} />}
+                <TouchableOpacity onLongPress={selectRandomAvatar}>
+                    <View style={[gStyle.Shadow, styles.avatarContainer]}>
+                        {randomAvatar && (
+                            <ImageBackground
+                                source={randomAvatar}
+                                style={styles.avatarImage}
+                                resizeMode="cover"
+                            />
+                        )}
                     </View>
                 </TouchableOpacity>
-
                 <View style={{ marginTop: 23 }}>
                     <View style={{
                         borderRadius: 6,
@@ -82,7 +108,7 @@ export default function Settings({ navigation }) {
                 </Text>
                 <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
                 <TextInput
-                    style={{ marginBottom: 15, backgroundColor: '#E6E6FA', height: 40 }}
+                    style={[styles.textInput, !isEmailValid && styles.invalidTextInput]}
                     value={email}
                     onChangeText={handleEmailChange}
                     placeholder="Введите почту"
@@ -90,32 +116,48 @@ export default function Settings({ navigation }) {
                     autoCapitalize="none"
                 />
                 <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
-                <Text style={[gStyle.text, { fontSize: 16, textAlign: 'left', marginBottom: 15 }]}>
-                    {`{имя}`}
-                </Text>
+                <TextInput
+                    style={[styles.textInput, !isPhoneValid && styles.invalidTextInput]}
+                    value={phone}
+                    onChangeText={handlePhoneChange}
+                    placeholder="Введите номер телефона"
+                    keyboardType="default"
+                    autoCapitalize="none"
+                />
             </View>
         </View >
     );
 }
 
 const styles = StyleSheet.create({
-    badgeShadow: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5
-    },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
+    textInput: {
+        marginBottom: 15,
+        backgroundColor: '#E6E6FA',
+        height: 40,
+        borderRadius: 6,
+        paddingHorizontal: 10,
+    },
+    invalidTextInput: {
+        borderColor: 'red',
+        borderWidth: 1,
+    },
     avatarContainer: {
-        padding: 10
+        width: 243,
+        height: 243,
+        borderRadius: 110,
+        overflow: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 5,
     },
     avatarImage: {
-        width: 233,
-        height: 233,
-        borderRadius: 110,
-    }
+        flex: 1,
+    },
 });
