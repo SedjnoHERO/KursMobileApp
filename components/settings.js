@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ImageBackground, KeyboardAvoidingView, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { gStyle, isDarkMode } from '../styles/style';
 import { Title } from '../styles/CONST';

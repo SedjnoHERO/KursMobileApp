@@ -17,7 +17,7 @@ export default function Welcome({ navigation }) {
       </View>
       <Text style={gStyle.title}>Добро пожаловать!</Text>
       <Text style={[styles.text, gStyle.text]}>
-        Мы рады видеть вас в приложении "Тренажёр для развития памяти и когнитивных функций"
+        Мы рады видеть вас в приложении "Интеллектус"
       </Text>
       <View>
         <TouchableOpacity onPress={() => loadScene()}>
