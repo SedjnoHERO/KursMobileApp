@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
 
-// Импортируйте ваши компоненты экранов
 import Welcome from "./components/start/welcome";
 import Auth from "./components/start/auth";
 import Main from "./components/main";
@@ -59,10 +58,9 @@ function TabNavigator() {
             shadowOpacity: 0.3,
             shadowRadius: 4,
             zIndex: 999,
-
           },
           tabBarShowLabel: false,
-          tabBarVisible: isTabBarVisible // Скрытие/показ Tab Bar
+          tabBarVisible: isTabBarVisible
         }}
 
       >

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { gStyle, isDarkMode } from '../styles/style';
 import { Title } from '../styles/CONST';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 const avatars = [
     require('../assets/avatars/dog.png'),
@@ -15,6 +16,7 @@ const avatars = [
 
 export default function Settings({ navigation }) {
     const [username, setUsername] = useState('');
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         getStoredUsername();
@@ -22,35 +24,30 @@ export default function Settings({ navigation }) {
 
     const getStoredUsername = async () => {
         try {
-            const storedUsername = await AsyncStorage.getItem("UserName");
+            const storedUsername = await AsyncStorage.getItem('UserName');
             setUsername(storedUsername);
         } catch (error) {
             console.log(error);
         }
     };
 
+    const isEmailValid = validateEmail(email);
     const [email, setEmail] = useState('');
-    const [isPhoneValid, setIsPhoneValid] = useState(true);
-    const [phone, setPhone] = useState('');
-
     const handleEmailChange = (text) => {
         setEmail(text);
     };
-
     const validateEmail = (email) => {
         const regex = /@(mail\.ru|gmail\.com)$/;
         return regex.test(email);
     };
 
-    const isEmailValid = validateEmail(email);
-
+    const [isPhoneValid, setIsPhoneValid] = useState(true);
+    const [phone, setPhone] = useState('');
     const handlePhoneChange = (text) => {
         const cleanedText = text.replace(/[^0-9+]/g, '');
         setPhone(cleanedText);
         setIsPhoneValid(validatePhone(cleanedText));
     };
-
-
     const validatePhone = (phone) => {
         const phoneRegex = /^\d{12}$/;
         return phoneRegex.test(phone);
@@ -70,62 +67,67 @@ export default function Settings({ navigation }) {
     };
 
     return (
-        <View style={[gStyle.page, { justifyContent: 'flex-start' }]}>
-            <Title text='Параметры' />
-            <View style={{ marginTop: 138, alignItems: 'center' }}>
-                <TouchableOpacity onLongPress={selectRandomAvatar}>
-                    <View style={[gStyle.Shadow, styles.avatarContainer]}>
-                        {randomAvatar && (
-                            <ImageBackground
-                                source={randomAvatar}
-                                style={styles.avatarImage}
-                                resizeMode="cover"
-                            />
-                        )}
-                    </View>
-                </TouchableOpacity>
-                <View style={{ marginTop: 23 }}>
-                    <View style={{
-                        borderRadius: 6,
-                        height: 30,
-                        paddingHorizontal: 10,
-                        backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA',
-                    }}>
-                        <Text style={[gStyle.specText, { color: isDarkMode() ? '#6757CB' : 'white', fontFamily: 'mt-bold', marginLeft: 10, marginRight: 10 }]}>{username}</Text>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={[gStyle.page, { justifyContent: 'flex-start' }]}
+        >
+            <View style={[gStyle.page, { justifyContent: 'flex-start' }]}>
+                <Title text='Параметры' />
+                <View style={{ marginTop: 138, alignItems: 'center' }}>
+                    <TouchableOpacity onLongPress={selectRandomAvatar}>
+                        <View style={[gStyle.Shadow, styles.avatarContainer]}>
+                            {randomAvatar && (
+                                <ImageBackground
+                                    source={randomAvatar}
+                                    style={styles.avatarImage}
+                                    resizeMode="cover"
+                                />
+                            )}
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ marginTop: 23 }}>
+                        <View style={{
+                            borderRadius: 6,
+                            height: 30,
+                            paddingHorizontal: 10,
+                            backgroundColor: isDarkMode() ? '#FFCA1D' : '#66CDAA',
+                        }}>
+                            <Text style={[gStyle.specText, { color: isDarkMode() ? '#6757CB' : 'white', fontFamily: 'mt-bold', marginLeft: 10, marginRight: 10 }]}>{username}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
-            <View style={{
-                display: 'flex',
-                flexDirection: 'column',
-                left: -60,
-                marginTop: 30
-            }}>
-                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Имя</Text>
-                <Text style={[gStyle.text, { fontSize: 18, textAlign: 'left', marginBottom: 15 }]}>
-                    {username}
-                </Text>
-                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
-                <TextInput
-                    style={[styles.textInput, !isEmailValid && styles.invalidTextInput]}
-                    value={email}
-                    onChangeText={handleEmailChange}
-                    placeholder="Введите почту"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-                <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
-                <TextInput
-                    style={[styles.textInput, !isPhoneValid && styles.invalidTextInput]}
-                    value={phone}
-                    onChangeText={handlePhoneChange}
-                    placeholder="Введите номер телефона"
-                    keyboardType="default"
-                    autoCapitalize="none"
-                />
-            </View>
-        </View >
+                <View style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    left: -60,
+                    marginTop: 30
+                }}>
+                    <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Имя</Text>
+                    <Text style={[gStyle.text, { fontSize: 18, textAlign: 'left', marginBottom: 15 }]}>
+                        {username}
+                    </Text>
+                    <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Почта</Text>
+                    <TextInput
+                        style={[styles.textInput, !isEmailValid && styles.invalidTextInput]}
+                        value={email}
+                        onChangeText={handleEmailChange}
+                        placeholder="Введите почту"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                    />
+                    <Text style={[gStyle.title, { fontSize: 20, textAlign: 'left', marginBottom: 5 }]}>Номер телефона</Text>
+                    <TextInput
+                        style={[styles.textInput, !isPhoneValid && styles.invalidTextInput]}
+                        value={phone}
+                        onChangeText={handlePhoneChange}
+                        placeholder="Введите номер телефона"
+                        keyboardType="default"
+                        autoCapitalize="none"
+                    />
+                </View>
+            </View >
+        </KeyboardAvoidingView>
     );
 }
 

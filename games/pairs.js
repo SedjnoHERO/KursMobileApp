@@ -62,13 +62,10 @@ const PairsGame = ({ navigation }) => {
     if (matchedCards.includes(index)) {
       return;
     }
-
     let newSelectedCards = [...selectedCards];
-
     if (newSelectedCards.length === 2) {
       return;
     }
-
     if (newSelectedCards.length === 1 && newSelectedCards[0] === index) {
       return;
     }

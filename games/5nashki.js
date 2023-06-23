@@ -33,7 +33,6 @@ const PuzzleGame = ({ navigation }) => {
         setTimer((prevTimer) => prevTimer + 1);
       }, 1000);
     }
-
     return () => clearInterval(interval);
   }, [isTimerRunning]);
 

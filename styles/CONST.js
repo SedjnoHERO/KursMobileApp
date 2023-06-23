@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const loadScene = (navigation) => {
-  navigation.navigate("Main");
-};
 
 export const BackArrow = ({ navigation }) => {
+  const loadScene = (navigation) => {
+    navigation.navigate("Main");
+  };
   return (
     <TouchableOpacity style={{ position: "absolute", top: 80, left: 45 }} onPress={() => loadScene(navigation)}>
       <Ionicons name="arrow-back" size={30} color={isDarkMode() ? "white" : "black"} />
@@ -22,16 +22,28 @@ export const Title = ({ text }) => {
       {text}
     </Text>
   );
-}
+};
 
 export const GameTile = ({ source, onPress }) => {
   return (
-    <TouchableOpacity style={{ width: 159, height: 249, borderRadius: 23, margin: 11, marginBottom: 23, justifyContent: "flex-end", alignItems: "center", overflow: "hidden", }} onPress={onPress}>
+    <TouchableOpacity style={{
+      width: 159,
+      height: 249,
+      borderRadius: 23,
+      margin: 11,
+      marginBottom: 23,
+      justifyContent: "flex-end",
+      alignItems: "center",
+      overflow: "hidden",
+    }}
+      onPress={onPress}>
       <Image source={source} style={{ width: "100%", height: "100%", zIndex: 1 }} />
     </TouchableOpacity>
   );
 };
+
 // общий прогресс
+
 export const increaseProgress = async (value) => {
   try {
     const storedProgress = await AsyncStorage.getItem('Progress');

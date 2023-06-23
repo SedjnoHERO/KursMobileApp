@@ -15,12 +15,12 @@ const Auth = ({ navigation }) => {
       setUsername(text);
     }
   };
+
   const keys = ['Пятнашки', 'Найди пару', 'Крестики-нолики', 'Угадай слово'];
 
   const resetGameProgress = async (gameName) => {
     try {
       await AsyncStorage.setItem(gameName, '0');
-      console.log(`Game progress reset for ${gameName}`);
     } catch (error) {
       console.error(error);
     }

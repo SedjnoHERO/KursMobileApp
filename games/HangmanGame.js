@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { gStyle } from '../styles/style';
 import { Title, BackArrow, increaseProgress, StartButton, CustomAlert, gamesStat } from '../styles/CONST';
 import wordsData from './words.json';
