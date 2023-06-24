@@ -1,4 +1,4 @@
-import { TouchableOpacity, Modal, View, Text, Image, Pressable } from "react-native";
+import { TouchableOpacity, Modal, View, Text, Image, Pressable, Platform } from "react-native";
 import { gStyle, isDarkMode } from "./style";
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
@@ -10,7 +10,7 @@ export const BackArrow = ({ navigation }) => {
     navigation.navigate("Main");
   };
   return (
-    <TouchableOpacity style={{ position: "absolute", top: 80, left: 45 }} onPress={() => loadScene(navigation)}>
+    <TouchableOpacity style={{ position: "absolute", top: Platform.OS === 'android' ? 30 : 80, left: 45 }} onPress={() => loadScene(navigation)}>
       <Ionicons name="arrow-back" size={30} color={isDarkMode() ? "white" : "black"} />
     </TouchableOpacity>
   );
@@ -18,7 +18,7 @@ export const BackArrow = ({ navigation }) => {
 
 export const Title = ({ text }) => {
   return (
-    <Text style={[gStyle.title, { position: 'absolute', top: 80 }]}>
+    <Text style={[gStyle.title, { position: 'absolute', top: Platform.OS === 'android' ? 30 : 80 }]}>
       {text}
     </Text>
   );

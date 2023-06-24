@@ -44,7 +44,7 @@ function TabNavigator() {
         screenOptions={{
           tabBarStyle: {
             position: 'absolute',
-            bottom: 30,
+            bottom: Platform.OS === 'android' ? 20 : 30,
             left: 32,
             right: 32,
             height: 66,
