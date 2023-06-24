@@ -19,10 +19,10 @@ export default function Settings({ navigation }) {
     const [phone, setPhone] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [fieldToEdit, setFieldToEdit] = useState('');
-    const [isEmailValid, setIsEmailValid] = useState(true);
 
     useEffect(() => {
         getStoredUserData();
+        selectRandomAvatar();
     }, []);
 
     const EditModal = ({ modalVisible, fieldToEdit, isEmailValid, username, email, phone, setUsername, setEmail, setPhone, handleConfirm }) => {
@@ -71,17 +71,18 @@ export default function Settings({ navigation }) {
 
     const saveUserData = async () => {
         try {
-            await AsyncStorage.setItem('UserName', username);
-            await AsyncStorage.setItem('UserEmail', email);
-            await AsyncStorage.setItem('UserPhone', phone);
+            await AsyncStorage.multiSet([
+                ['UserName', username],
+                ['UserEmail', email],
+                ['UserPhone', phone]
+            ]);
         } catch (error) {
             console.log(error);
         }
     };
 
     const handleConfirm = () => {
-        saveUserData();
-        setModalVisible(false);
+        Promise.all([saveUserData(), setModalVisible(false)]);
     };
 
     const handleEdit = (field) => {
@@ -90,10 +91,6 @@ export default function Settings({ navigation }) {
     };
 
     const [randomAvatar, setRandomAvatar] = useState(null);
-    useEffect(() => {
-        getStoredUserData();
-        selectRandomAvatar();
-    }, []);
 
     const selectRandomAvatar = () => {
         const randomAvatarIndex = Math.floor(Math.random() * avatars.length);
@@ -151,20 +148,18 @@ export default function Settings({ navigation }) {
                     </View>
                 </TouchableOpacity>
             </View>
-            <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
-                <EditModal
-                    modalVisible={modalVisible}
-                    fieldToEdit={fieldToEdit}
-                    isEmailValid={isEmailValid}
-                    username={username}
-                    email={email}
-                    phone={phone}
-                    setUsername={setUsername}
-                    setEmail={setEmail}
-                    setPhone={setPhone}
-                    handleConfirm={handleConfirm}
-                />
-            </View>
+            <EditModal style={{ justifyContent: 'center', alignItems: 'center' }}
+                modalVisible={modalVisible}
+                fieldToEdit={fieldToEdit}
+                isEmailValid={isEmailValid}
+                username={username}
+                email={email}
+                phone={phone}
+                setUsername={setUsername}
+                setEmail={setEmail}
+                setPhone={setPhone}
+                handleConfirm={handleConfirm}
+            />
         </View >
     );
 }
@@ -176,14 +171,7 @@ const styles = StyleSheet.create({
         padding: 35,
         width: '60%',
         alignSelf: 'center',
-        // shadowColor: '#000',
-        // shadowOffset: { width: 0, height: 2 },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 4,
-        // elevation: 5,
-        // flex: 1,
     },
-
     modalTitle: {
         fontSize: 20,
         marginBottom: 10,
