@@ -16,20 +16,6 @@ const Auth = ({ navigation }) => {
     }
   };
 
-  const keys = ['Пятнашки', 'Найди пару', 'Крестики-нолики', 'Угадай слово'];
-
-  const resetGameProgress = async (gameName) => {
-    try {
-      await AsyncStorage.setItem(gameName, '0');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  keys.forEach(async (gameName) => {
-    await resetGameProgress(gameName);
-  });
-
   const handleLogin = async () => {
     try {
       if (username.length === 0 || password.length === 0) {
@@ -38,6 +24,8 @@ const Auth = ({ navigation }) => {
       }
       await AsyncStorage.setItem("UserName", username);
       await AsyncStorage.setItem("Password", password);
+      await AsyncStorage.removeItem("UserEmail");
+      await AsyncStorage.removeItem("UserPhone");
       await AsyncStorage.setItem("Progress", JSON.stringify(0));
       navigation.replace("Main");
     } catch (error) {
@@ -46,8 +34,9 @@ const Auth = ({ navigation }) => {
     }
   };
 
+
   return (
-    <View style={[gStyle.page, { justifyContent: "center", alignItems: "center" }]}>
+    <View style={gStyle.page}>
       <Text style={[gStyle.specText, { fontFamily: 'mt-light', marginBottom: 20 }]}>Авторизация</Text>
       <TextInput
         style={[styles.input, styles.placeholder, { marginBottom: 28 }]}

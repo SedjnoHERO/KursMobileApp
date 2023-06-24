@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { Ionicons } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 
 import Welcome from "./components/start/welcome";
 import Auth from "./components/start/auth";
@@ -18,6 +18,7 @@ import { Keyboard, Platform, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 // Навигатор вкладок
 function TabNavigator() {
   const [isTabBarVisible, setTabBarVisible] = useState(true);
@@ -70,8 +71,8 @@ function TabNavigator() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name='bar-chart-outline'
+              <Octicons
+                name='clock'
                 size={(focused ? 50 : 45)}
                 style={
                   Platform.OS === 'ios' && {
@@ -91,8 +92,8 @@ function TabNavigator() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name='home-outline'
+              <Octicons
+                name='home'
                 size={(focused ? 50 : 45)}
                 style={
                   Platform.OS === 'ios' && {
@@ -111,8 +112,8 @@ function TabNavigator() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name='settings-outline'
+              <Octicons
+                name='gear'
                 size={(focused ? 50 : 45)}
                 right={20}
                 style={
