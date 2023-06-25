@@ -31,7 +31,7 @@ export default function Settings({ navigation }) {
     };
 
     const [email, setEmail] = useState("");
-    const [isPhoneValid, setIsPhoneValid] = useState(true);
+    const [isPhoneValid, setIsPhoneValid] = useState(false);
     const [phone, setPhone] = useState("");
 
     const handleEmailChange = (text) => {
