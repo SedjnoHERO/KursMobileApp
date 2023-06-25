@@ -148,7 +148,7 @@ export default function Settings({ navigation }) {
                     </View>
                 </TouchableOpacity>
             </View>
-            <EditModal style={{ justifyContent: 'center', alignItems: 'center' }}
+            <EditModal
                 modalVisible={modalVisible}
                 fieldToEdit={fieldToEdit}
                 isEmailValid={isEmailValid}
